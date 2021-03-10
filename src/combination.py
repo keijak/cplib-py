@@ -28,3 +28,13 @@ def combmod(n, k, p=MOD, cache=collections.defaultdict(lambda: [(1, 1)])):
     # i.e. a^(p-2) ≡ a^(-1) mod p
     inv_dev = pow(den, p - 2, p)
     return num * inv_dev % p
+
+
+def comb_table(n, p=MOD):
+    C = [[0] * (n + 1) for _ in range(n + 1)]
+    for i in range(n + 1):
+        C[i][0] = C[i][i] = 1
+    for i in range(1, n + 1):
+        for j in range(1, i):
+            C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % p
+    return C
